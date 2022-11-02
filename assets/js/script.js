@@ -18,12 +18,40 @@
 
 // console.log(listaDeTarefas[0].descricao)
 
-const inputTarefa = document.querySelector('#tarefa')
+// const inputTarefa = document.querySelector('#tarefa')
 // console.log(inputTarefa.value)
 
-const formTarefa = document.querySelector('#form')
+// const formTarefa = document.querySelector('#form')
 
-formTarefa.addEventListener('submit', function(event){
+// formTarefa.addEventListener('submit', function(event){
+//     event.preventDefault()
+//     console.log(inputTarefa.value)
+// })
+
+// function imprimir(){
+//     console.log("Clicou no botão")
+// }
+
+const descricaoTarefa = document.querySelector('#tarefa')
+const dataTarefa = document.querySelector('#data')
+const form = document.querySelector('#form')
+const listaTarefas = []
+
+function limparFormulario() {
+    descricaoTarefa.value = ''
+    dataTarefa.value = ''
+}
+
+form.addEventListener('submit', (event) => {
     event.preventDefault()
-    console.log(inputTarefa.value)
+
+    const tarefa = {
+        descricao: descricaoTarefa.value,
+        data: dataTarefa.value,
+        realizado: false,
+    }
+
+    listaTarefas.push(tarefa)
+
+    console.log(tarefa)
 })
