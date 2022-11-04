@@ -35,11 +35,39 @@
 const descricaoTarefa = document.querySelector('#tarefa')
 const dataTarefa = document.querySelector('#data')
 const form = document.querySelector('#form')
-const listaTarefas = []
+const result = document.querySelector('#result')
+let listaTarefas = []
 
 function limparFormulario() {
     descricaoTarefa.value = ''
     dataTarefa.value = ''
+}
+
+const tarefasToLocalStorage = () => {
+    localStorage.setItem('tarefas', JSON.stringify(listaTarefas))
+}
+
+const getTarefasFromLocalStorage = () => {
+    listaTarefas = JSON.parse(localStorage.getItem('tarefas'))
+}
+
+const setResultToTable = () => {
+
+    result.innerHTML = ''
+
+    listaTarefas.forEach(tarefa => {
+        const linha = document.createElement('tr')
+
+        const colunaDescricao = document.createElement('td')
+        colunaDescricao.innerHTML = tarefa.descricao
+
+        const colunaData = document.createElement('td')
+        colunaData.innerHTML = tarefa.data
+
+        linha.appendChild(colunaDescricao)
+        linha.appendChild(colunaData)
+        result.appendChild(linha)
+    })
 }
 
 form.addEventListener('submit', (event) => {
@@ -47,11 +75,18 @@ form.addEventListener('submit', (event) => {
 
     const tarefa = {
         descricao: descricaoTarefa.value,
-        data: dataTarefa.value,
+        data: new Date(dataTarefa.value),
         realizado: false,
     }
 
     listaTarefas.push(tarefa)
 
-    console.log(tarefa)
+
+    tarefasToLocalStorage()
+    getTarefasFromLocalStorage()
+
+    setResultToTable()
 })
+
+// getTarefasFromLocalStorage()
+setResultToTable()
